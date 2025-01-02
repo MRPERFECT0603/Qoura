@@ -1,1 +1,1 @@
-# Qoura
+# Qoura-TypeScript

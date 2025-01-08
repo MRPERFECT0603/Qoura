@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: User API
+  description: API for managing user profiles.
+  version: 1.0.0
+paths:
+  /users:
+    post:
+      summary: Create a new user
+      description: This endpoint allows you to create a new user by providing the `username` and `email`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the user.
+                  example: "john_doe"
+                email:
+                  type: string
+                  description: The email address of the user.
+                  example: "john.doe@example.com"
+      responses:
+        201:
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the created user.
+                  username:
+                    type: string
+                    description: The username of the created user.
+                  email:
+                    type: string
+                    description: The email of the created user.
+        500:
+          description: Internal server error.
+
+  /users/{userId}:
+    get:
+      summary: Get user details
+      description: This endpoint allows you to retrieve the details of a user based on their `userId`.
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: The ID of the user to retrieve.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: User data found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the user.
+                  username:
+                    type: string
+                    description: The username of the user.
+                  email:
+                    type: string
+                    description: The email of the user.
+        500:
+          description: Internal server error.
+
+    put:
+      summary: Update user details
+      description: This endpoint allows you to update a user’s information (e.g., `username`, `email`, `bio`).
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: The ID of the user to update.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the user.
+                  example: "john_doe_updated"
+                email:
+                  type: string
+                  description: The email address of the user.
+                  example: "john.doe_updated@example.com"
+                bio:
+                  type: string
+                  description: The biography of the user.
+                  example: "Updated bio content."
+      responses:
+        200:
+          description: User updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  email:
+                    type: string
+                  bio:
+                    type: string
+        500:
+          description: Internal server error.

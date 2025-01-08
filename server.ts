@@ -1,6 +1,7 @@
 
 import express, { Express, Request , Response } from "express";
-import Routes from "./Routes/userRoute";
+import userRouter from "./Routes/userRoute";
+import topicRouter from "./Routes/topicRoutes";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
@@ -11,7 +12,9 @@ const PORT = 8000;
 app.use(express.json());
 const swaggerDocument = YAML.load("./swagger.yaml");
 
-app.use("/api" , Routes);
+app.use("/api" , userRouter);
+app.use("/api" , topicRouter);
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 

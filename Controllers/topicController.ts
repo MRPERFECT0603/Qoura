@@ -34,7 +34,7 @@ const getTopic = async ( req : Request , res : Response) => {
         const userQuery = "SELECT name FROM \"Topic\" ";
         const result = await pool.query(userQuery);
         const allTopics = result.rows;
-        return res.status(201).json(allTopics);
+        return res.status(200).json(allTopics);
     }
     catch (error) {
         const err = error as Error; 

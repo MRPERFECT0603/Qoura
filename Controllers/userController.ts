@@ -45,7 +45,7 @@ const getUser = async (req: Request, res: Response) => {
     }
     catch (error) {
         const err = error as Error; 
-        console.error("Error in creating user:", {
+        console.error("Error in getting user:", {
             error: err.message || err,
             requestBody: req.body,
             requestHeaders: req.headers,
@@ -97,7 +97,7 @@ const updateUser = async (req: Request, res: Response) => {
     }
     catch (error) {
         const err = error as Error; 
-        console.error("Error in creating user:", {
+        console.error("Error in updating user:", {
             error: err.message || err,
             requestBody: req.body,
             requestHeaders: req.headers,

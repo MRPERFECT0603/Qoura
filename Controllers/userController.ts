@@ -11,7 +11,7 @@ const addUser = async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Invalid email format' });
     // Username should be length(6-20) && should be alphanumeric (Containing only alphabets and digits).
     if (!validator.isLength(username, { min: 6, max: 20 }) || !validator.isAlphanumeric(username))
-        return res.status(400).json({ error: 'Invalid Username format' });
+        return res.status(400).json({ error: 'Invalid Username format. Must be AlphaNumeric of Length between (6-20).' });
 
 
     try {
@@ -24,9 +24,7 @@ const addUser = async (req: Request, res: Response) => {
         const err = error as Error; 
         console.error("Error in creating user:", {
             error: err.message || err,
-            requestBody: req.body,
-            requestHeaders: req.headers,
-            requestParams: req.params
+            requestBody : req.body,
         });
     
         return res.status(500).json({ error: 'Internal Server Error' });
@@ -45,16 +43,29 @@ const getUser = async (req: Request, res: Response) => {
     }
     catch (error) {
         const err = error as Error; 
-        console.error("Error in creating user:", {
+        console.error("Error in getting user:", {
             error: err.message || err,
-            requestBody: req.body,
-            requestHeaders: req.headers,
-            requestParams: req.params
+            userId: req.params,
         });
     
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
+const generateUpdateFields = (fields: Record<string, any>): { setClause: string[]; queryParams: any[] } => {
+    const setClause: string[] = [];
+    const queryParams: any[] = [];
+
+    Object.entries(fields).forEach(([key, value]) => {
+        if (value !== undefined) { 
+            setClause.push(`${key} = $${setClause.length + 1}`);
+            queryParams.push(value);
+        }
+    });
+
+    return { setClause, queryParams };
+};
+
 
 const updateUser = async (req: Request, res: Response) => {
     const { userId } = req.params;
@@ -64,24 +75,12 @@ const updateUser = async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Invalid UserId format' });
 
 
-    let setClause = [];
-    let queryParams = [];
+    const { setClause, queryParams } = generateUpdateFields({ username, email, bio });
 
-    if (username) {
-        setClause.push(`username = $${setClause.length + 1}`);
-        queryParams.push(username);
-    }
-    if (email) {
-        setClause.push(`email = $${setClause.length + 1}`);
-        queryParams.push(email);
-    }
-    if (bio) {
-        setClause.push(`bio = $${setClause.length + 1}`);
-        queryParams.push(bio);
-    }
     if (setClause.length === 0) {
         return res.status(400).json({ message: "No data to update." });
     }
+
     queryParams.push(userId);
     const userQuery = `
         UPDATE "Users" 
@@ -97,11 +96,10 @@ const updateUser = async (req: Request, res: Response) => {
     }
     catch (error) {
         const err = error as Error; 
-        console.error("Error in creating user:", {
+        console.error("Error in updating user:", {
             error: err.message || err,
             requestBody: req.body,
-            requestHeaders: req.headers,
-            requestParams: req.params
+            userId: req.params
         });
     
         return res.status(500).json({ error: 'Internal Server Error' });

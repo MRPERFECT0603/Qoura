@@ -14,7 +14,6 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 
 app.use("/api" , userRouter);
 app.use("/api" , topicRouter);
-
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 

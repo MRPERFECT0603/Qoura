@@ -2,6 +2,7 @@
 import express, { Express, Request , Response } from "express";
 import userRouter from "./Routes/userRoute";
 import topicRouter from "./Routes/topicRoutes";
+import answerRoute from "./Routes/answerRoute";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
@@ -14,6 +15,7 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 
 app.use("/api" , userRouter);
 app.use("/api" , topicRouter);
+app.use("/api" , answerRoute);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 

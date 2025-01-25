@@ -7,7 +7,7 @@ const {addUser , getUser , updateUser} = require("../Controllers/userController"
 
 /**
 *   @swagger
-*   /api/users:
+*   /users:
 *     post:
 *       summary: Register a new user
 *       description: Creates a new user with the provided details.
@@ -73,7 +73,7 @@ const {addUser , getUser , updateUser} = require("../Controllers/userController"
 userRouter.post("/users" , addUser);
 /**
 *   @swagger
-*   /api/users/{userId}:
+*   /users/{userId}:
 *     get:
 *       summary: Retrieve user profile information
 *       description: Retrieves user profile information by user ID.
@@ -122,7 +122,7 @@ userRouter.post("/users" , addUser);
 userRouter.get("/users/:userId" , getUser);
 /**
 *   @swagger
-*   /api/users/{userId}:
+*   /users/{userId}:
 *     put:
 *       summary: Update user profile
 *       description: Updates user profile information by user ID.

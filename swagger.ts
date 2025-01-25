@@ -246,7 +246,7 @@ const swaggerSpec = swaggerJsDoc({
     },
     servers: [
       {
-        url: "http://localhost:8000",
+        url: "http://localhost:8000/api",
         description: "The LocalHost server",
       },
       {
@@ -254,7 +254,7 @@ const swaggerSpec = swaggerJsDoc({
         description: "Main production server",
       },
       {
-        url: "https://qoura.onrender.com",
+        url: "https://qoura.onrender.com/api",
         description: "Internal staging server for Development",
       },
     ],

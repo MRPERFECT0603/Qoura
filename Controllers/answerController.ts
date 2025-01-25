@@ -54,7 +54,7 @@ const updateAnswer = async (req: Request , res: Response) => {
         `;
         const result = await pool.query(ansQuery, [newAns , answerId]);
         const updatedAns = result.rows[0];
-        return res.status(201).json(updatedAns);
+        return res.status(200).json(updatedAns);
     }
     catch (error) {
         const err = error as Error; 

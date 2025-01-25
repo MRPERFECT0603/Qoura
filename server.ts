@@ -18,7 +18,7 @@ const PORT = 8000;
 app.use(express.json());
 app.use(
     cors({
-      origin: 'http://localhost:8000',
+      origin: ['http://localhost:8000', "https://qoura.onrender.com"]
     })
   );
 app.use("/api" , userRouter);

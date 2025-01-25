@@ -107,7 +107,7 @@ answerRoute.post("/questions/:questionId/answers", addAnswer);
  *         schema:
  *           type: string
  *           format: uuid
- *           example: "c5d3b194-f8b5-4636-94bb-abea4fc41172"
+ *           example: "02a4639f-837c-4dc7-b931-eada0bed94b3"
  *     requestBody:
  *       description: Object containing the updated answer text.
  *       required: true
